@@ -1,0 +1,13 @@
+---
+title: "Statistical Inference Course - Study of the Exponential Distribution"
+author: "Fabien Nugier"
+date: "11/15/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
