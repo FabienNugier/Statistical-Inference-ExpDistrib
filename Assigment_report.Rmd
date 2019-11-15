@@ -1,5 +1,5 @@
 ---
-title: "Statistical Inference Course - Study of the Exponential Distribution"
+title: "Statistical Inference - Exponential Distribution"
 author: "Fabien Nugier"
 date: "11/15/2019"
 output: pdf_document
@@ -15,7 +15,6 @@ This project consists of two parts, in Part I we study the properties of the exp
 # Introduction
 
 As explained on [Wikipedia-Exponential_Disribution][1], the exponential distribution is the distribution of time intervals between two events in a Poisson point process, for which events occur continuously, independently from each other, and at a constant average rate.
-
 The probability density function of the exponential distribution is given by:
 $$ f(x,\lambda) = \begin{cases} \lambda \, e^{\lambda x} ~ x \geq 0 \\ 0 ~ x<0 \end{cases} $$
 with $\lambda$ the "rate parameter" of the distribution. Its mean is given by $1/\lambda$ and variance is $1/\lambda^2$.
@@ -30,7 +29,7 @@ n = 40        # population within one sample
 Nsim = 1000   # number of samples (simulations)
 ```
 and draw one sample out of this distribution:
-```{r onesample, echo=TRUE, fig.align="center", out.width='60%'}
+```{r onesample, echo=TRUE, fig.align="center", out.width='50%'}
 set.seed(12345)
 hist(rexp(n,lambda), xlab="x", main="Histogram of x ~ Exp(0.2)", col="light blue")
 ```
@@ -47,7 +46,7 @@ s <- sd(X)   # We take the standard deviation of the sample means
 print(paste("mean:",round(m,3),", standard error:",round(s,3)))
 ```
 
-Since we know the theoretical mean to be $1/\lambda$ and the variance to be $(1/\lambda)^2/\sqrt(n)$, we can plot on top of the histogram the theoretical distribution $N(x;\mu=1/\lambda,\sigma=1/(\lambda \sqrt{n})$. Note that since the histogram counts the number of occurences of values within bins, we need to scale the theoretical distribution with it. We use for that a method presented on [*stack overflow*][2].
+Since we know the theoretical mean to be $1/\lambda$ and the variance to be $(1/\lambda)^2/\sqrt(n)$, we can plot on top of the histogram the theoretical distribution $N(x;\mu=1/\lambda,\sigma=1/(\lambda \sqrt{n}))$. Note that since the histogram counts the number of occurences of values within bins, we need to scale the theoretical distribution with it. We use for that a method presented on [*stack overflow*][2].
 
 ```{r plotsampling, echo=TRUE, fig.align="center", out.width='60%'}
 # Initializing
@@ -74,7 +73,7 @@ mtext("Density", side = 4, line = 3)
 lines(xseq, dnorm(xseq,mth,sth), type='l', lwd=2)
 ```
 
-Since we are considering the sample means of idd variables here, and as attested by the plot, the sample means approaches a standard normal distribution when the size of the sample means population is large enough (here 1000). This confirms the validity of the Central Limit Theorem in the case of the exponential distribution.
+Since we are considering the sample means of idd variables here, and as attested by the plot, the sample mean distribution approaches a standard normal distribution when the size of the sample means population is large enough (here 1000). This confirms the validity of the Central Limit Theorem in the case of the exponential distribution.
 
 
 
@@ -98,7 +97,7 @@ summary(ToothGrowth$supp)
 unique(ToothGrowth$dose)
 ```
 
-To get a better grasp on the data, we do a scatter plot separating the 2 delivery methods (OJ for "Orange Juice" and VC for "Ascorbic acid", a form of "Vitamin C") and different dosages:
+To get a better grasp on the data, we do a scatter plot separating the two delivery methods (OJ for "Orange Juice" and VC for "Ascorbic acid", a form of "Vitamin C") and different dosages:
 ```{r test, echo=TRUE, fig.align="center", out.width='80%'}
 library(lattice)
 pltt <- "Teeth length of guinea pigs for different dosages \n"
@@ -116,16 +115,16 @@ We perform a T-test on the data, assuming that the two guinea pigs test groups w
 ```{r ttest, echo=TRUE}
 t.test(len ~ supp, paired=FALSE, var.equal=TRUE, data=ToothGrowth)
 ```
-The null hypothesis $H_0$ is that both test groups have the same tooth length in the OJ and VC groups. Considering the p-value which is 0.06039, we can see that a 5% p-value would not reject the null hypothesis. However, a 1% p-value would reject $H-0$, meaning the treatment has been more efficient on the OJ group, for which the average tooth length is longer, than in the VC group.
+The null hypothesis $H_0$ is that *both test groups have the same tooth length in the OJ and VC groups*. Considering the p-value which is 0.06039, we can see that a 5% p-value would not reject the null hypothesis. However, a 1% p-value would reject $H_0$, meaning the treatment has been more efficient on the OJ group, for which the average tooth length is longer, than in the VC group.
 
-The t-test also returns to us the 95% confidence interval of the difference between the two groups. As we can see the value 0 is not excluded, which confirms that the null hypothesis is not excluded a 5% confidence level.
+The t-test also returns us the 95% confidence interval of the difference between the two groups. As we can see the value 0 is not excluded, which confirms that the null hypothesis is not excluding a 5% confidence level.
 
-Looking at the figures, we can also see that the dosage has a significant importance in the result. The more the dosage, the longer the tooth. This seems even more true for the VC group than it is for the OJ group.
+Looking at the figures, we can also see that the dosage has a significant importance in the results. The more the dosage, the longer the tooth. This seems even more true for the VC group than it is for the OJ group.
 
 
 # Short conclusions
 
-We have presented in this assignment two things. In the first part, we have shown that the sample mean of exponential distribution, like for many other distributions, converges to the normal distribution when the number of samples becomes large. In the second part we have studied a dataset of two different treatments and dosages applied to guinea pigs, with the associated measurement of their tooth length. It was shown that one treatment is better than the other, but a 5% confidence level is not enough to reject the null hypothesis of equal mean between the two groups. However, dosage is clearly correlated with the tooth lenth.
+We have presented in this assignment two things. In the first part, we have shown that the sample mean of exponential distribution, like for many other distributions, converges to the normal distribution when the number of samples becomes large. In the second part we have studied a dataset of two different treatments and dosages applied to guinea pigs, with the associated measurement of their tooth length. It was shown that one treatment is better than the other, but a 5% p-value is not enough to reject the null hypothesis of equal mean between the two groups. However, dosage is clearly correlated with the tooth length.
 
 
 
