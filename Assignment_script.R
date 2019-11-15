@@ -62,15 +62,12 @@ str(ToothGrowth)
 summary(ToothGrowth$supp)
 unique(ToothGrowth$dose)
 
+# Exploratory plots:
+xyplot(len ~ dose | supp, data=ToothGrowth, layout=c(2,1), xlab="dose (mg/day)", ylab="length (unknown unit)", main="Teeth length of guinea pigs for different dosages \n and methods (OJ = Orange Juice, VC = Vitamin C)", panel = function(x,y,...) {panel.xyplot(x, y, ...)
+    panel.lmline(x, y,type='l',lty=3,lwd=2, ...)})
 
-
-
-
-
-
-
-
-
+# T-test:
+t.test(len ~ supp, paired=FALSE, var.equal=TRUE, data=ToothGrowth)
 
 
 
